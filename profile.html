@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+    <div id="user_profile"></div>
+<script>
+    async function getUserData()   {
+        const response = await fetch('http://127.0.0.1:8000/profile', {
+            method: "POST",
+            headers: {"Accept": "application/json", "Content-Type": "application/json"},
+            body: JSON.stringify({
+                token: 'AiLKbUuvkg'
+            }),
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            document.getElementById("user_profile").innerHTML = "<ul>" +
+                                                                    "<li>" + data.name + "</li>" +
+                                                                    "<li>" + data.surname + "</li>" +
+                                                                "</ul>"
+        }
+        else {
+            alert(response);
+        }
+    }
+    window.onload(getUserData());
+</script>
+</body>
+</html>

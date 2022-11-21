@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Site</title>
+</head>
+<body>
+    <label for="first_name">First Name:</label>
+    <input type="text" id="first_name">
+    <br>
+    <label for="last_name">Last Name:</label>
+    <input type="text" id="last_name">
+    <br>
+    <button onclick="send()">Send Data</button>
+    <div id="response"></div>
+    <script>
+        async function create()   {
+                alert('asd')
+                const first_name = document.getElementById("first_name").value;
+                const password = document.getElementById("password").value;
+                alert('asd')
+                const response = await fetch('/create', {
+                    method: "POST",
+                    headers: {"Accept": "application/json", "Content-Type": "application/json"},
+                    body: JSON.stringify({
+                        name: first_name,
+                        pass: password,
+                    }),
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById("response").innerHTML = "<h3>" +  data.message + "</h3>"
+                }
+                else {
+                    alert(response);
+                }
+            };
+    </script>
+</body>
+</html>
